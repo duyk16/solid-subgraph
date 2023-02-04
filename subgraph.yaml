@@ -1,0 +1,42 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Lending
+    network: arbitrum-goerli
+    source:
+      address: "0xfB52F5aE7e802D9fa0FDBe0AdB5a546Ce256ED59"
+      abi: Lending
+      startBlock: 65000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Claim
+        - Deposit
+        - Initialized
+        - OwnershipTransferred
+        - Paused
+        - Unpaused
+        - Withdraw
+      abis:
+        - name: Lending
+          file: ./abis/Lending.json
+      eventHandlers:
+        - event: Claim(indexed address,uint256,(uint256,uint256,uint256,uint256,uint256,uint256,uint256))
+          handler: handleClaim
+        - event: Deposit(indexed address,(uint256,uint256,uint256,uint256,uint256,uint256,uint256))
+          handler: handleDeposit
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Withdraw(indexed address,uint256,(uint256,uint256,uint256,uint256,uint256,uint256,uint256))
+          handler: handleWithdraw
+      file: ./src/lending.ts

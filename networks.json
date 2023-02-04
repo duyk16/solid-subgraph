@@ -1,0 +1,8 @@
+{
+  "arbitrum-goerli": {
+    "Lending": {
+      "address": "0xfB52F5aE7e802D9fa0FDBe0AdB5a546Ce256ED59",
+      "startBlock": 65000000
+    }
+  }
+}
